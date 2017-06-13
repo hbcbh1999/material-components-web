@@ -9,7 +9,7 @@ path: /catalog/animation/
 
 # Animation
 
-MDC Animation is a Sass / CSS / JavaScript library which provides a toolbelt for Material Design animation, based off of the [motion guidelines](https://material.io/guidelines/motion/duration-easing.html#duration-easing-common-durations). Currently, it only covers easing curves.
+Material in motion is responsive and natural. Use these easing curves and duration patterns to create smooth and consistent motion.
 
 ## Design & API Documentation
 
@@ -27,37 +27,25 @@ npm install --save @material/animation
 
 ## Usage
 
-We currently have variables for the following 3 animation curves:
+### Sass Variables, Mixins + Rules
 
-| Variable name | timing function | use case |
-| --- | --- | --- |
-| `$mdc-animation-fast-out-slow-in-timing-function` | `cubic-bezier(.4, 0, .2, 1)` | Standard curve; any animations that are visible from start to finish (e.g. a FAB transforming into a toolbar) |
-| `$mdc-animation-linear-out-slow-in-timing-function` | `cubic-bezier(0, 0, .2, 1)` | Animations that cause objects to enter the screen (e.g. a fade in) |
-| `$mdc-animation-fast-out-linear-in-timing-function` | `cubic-bezier(.4, 0, ``, 1)` | Animations that cause objects to leave the screen (e.g. a fade out) |
+| Variable | Description |
+| --- | --- |
+| `mdc-animation-fast-out-slow-in-timing-function` | Animations that are visible from start to finish (e.g. a FAB transforming into a toolbar) |
+| `mdc-animation-linear-out-slow-in-timing-function` | Animations that cause objects to enter the screen (e.g. a fade in) |
+| `mdc-animation-fast-out-linear-in-timing-function` | Animations that cause objects to leave the screen (e.g. a fade out) |
 
-### SCSS
+All animation variables are marked with `!default`, thus they can be overridden should the need
+arise.
 
-Simply drop `mdc-animation` into your build and start using the variables:
+| Mixin | Description |
+| --- | --- |
+| `mdc-animation-linear-out-slow-in` | Animations that are visible from start to finish |
+| `mdc-animation-fast-out-slow-in` | Animations that cause objects to enter the screen |
+| `mdc-animation-fast-out-linear-in` | Animations that cause objects to leave the screen |
 
-```scss
-.mdc-thing--animating {
-  animation: foo 175ms $mdc-animation-fast-out-slow-in-timing-function;
-}
-```
 
-or the mixins, which simply assign their corresponding variables to the `animation-timing-function`
-property:
-
-```scss
-.mdc-thing--on-screen {
-  @include mdc-animation-fast-out-linear-in;
-}
-```
-
-Every mixin has the same name as its corresponding variable, without the `-timing-function` suffix.
-
-MDC Animation also provides helper functions for defining transitions for when something enters and exits the frame. A
-very common example of this is something that fades in and then fades out using opacity.
+MDC Animation also provides helper functions for defining transitions for when something enters and exits the frame. A very common example of this is something that fades in and then fades out using opacity.
 
 ```scss
 @import "@material/animation/functions";
@@ -98,35 +86,13 @@ Note that these functions also work with the `animation` property.
 
 ### CSS Classes
 
-> NOTE: dist/ will be available when installing via NPM.
+| CSS Class | Description |
+| --- | --- |
+| `mdc-animation-linear-out-slow-in` | Animations that are visible from start to finish |
+| `mdc-animation-fast-out-slow-in` | Animations that cause objects to enter the screen |
+| `mdc-animation-fast-out-linear-in` | Animations that cause objects to leave the screen |
 
-Alternatively, you can include the built stylesheet and use the classes it exports within your HTML
-
-```html
-<link href="path/to/mdc-animation/dist/mdc-animation.css" rel="stylesheet">
-<!-- ... -->
-<div id="my-animating-div" class="mdc-animation-fast-out-slow-in">hi</div>
-```
-
-CSS Classes have the exact same name as their mixin counterparts.
-
-### Overriding the default curves.
-
-All animation variables are marked with `!default`, thus they can be overridden should the need
-arise.
-
-### JavaScript
-
-MDC Web ships with a set of utility functions designed to make animations easier to implement.
-
-### Using Utility Functions
-
-To use:
-```js
-import {getCorrectEventName} from '@material/animation';
-
-const eventToListenFor = getCorrectEventName(window, 'animationstart');
-```
+### Utility JavaScript Functions
 
 | Method Signature | Description |
 | --- | --- |
